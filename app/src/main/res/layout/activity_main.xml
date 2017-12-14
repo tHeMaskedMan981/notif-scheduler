@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.google.firebase.quickstart.fcm.MainActivity">
+
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:src="@drawable/firebase_lockup_400" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/informationTextView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/quickstart_message" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/subscribeButton"-->
+        <!--android:layout_width="@dimen/standard_field_width"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:text="@string/subscribe_to_news" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/logTokenButton"-->
+        <!--android:layout_width="@dimen/standard_field_width"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:text="@string/log_token" />-->
+
+    <EditText
+        android:id="@+id/notiftext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="notif text"/>
+
+    <Button
+        android:id="@+id/notif"
+        android:layout_width="@dimen/standard_field_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="generate notification"
+        />
+
+    <EditText
+        android:id="@+id/notifidi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="notif id"/>
+    <EditText
+        android:id="@+id/notiftime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="notif time"/>
+    <EditText
+        android:id="@+id/notifday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="notif day"/>
+
+    <Button
+        android:id="@+id/schedule"
+        android:layout_width="@dimen/standard_field_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="schdule notification for above time" />
+    <EditText
+        android:id="@+id/notifid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="notif id to cancel"/>
+
+    <Button
+        android:id="@+id/cancel_schedule"
+        android:layout_width="@dimen/standard_field_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="cancel scheduled notification for 30 sec" />
+
+</LinearLayout>
