@@ -86,6 +86,20 @@
         android:layout_width="@dimen/standard_field_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="cancel scheduled notification for 30 sec" />
+        android:text="cancel scheduled notification" />
+
+    <Button
+        android:id="@+id/cancelAll"
+        android:layout_width="@dimen/standard_field_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="is service running" />
+
+    <Button
+        android:id="@+id/service"
+        android:layout_width="@dimen/standard_field_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Start Service" />
 
 </LinearLayout>

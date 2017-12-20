@@ -16,6 +16,9 @@
 
 package com.google.firebase.quickstart.fcm;
 import com.google.firebase.quickstart.fcm.MyFirebaseMessagingService;
+
+import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -42,12 +45,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     int i=0;
+    Intent intentnotif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate()");
 
+        intentnotif = new Intent(this, Autostart.class);
         Date currentTime = Calendar.getInstance().getTime();
         String time = currentTime.toString();
         String array1[] = time.split(" ");
@@ -135,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
                 long hours = (delay%(60000*24*60))/(60000*60);
                 long minutes = ((delay%(60000*24*60))%(60000*60))/(60000);
 
+                intentnotif.putExtra("delay", delay);
+                intentnotif.putExtra("notifidint", notifidint);
+                intentnotif.putExtra("message1", message1);
                 scheduler.scheduleNotification(MainActivity.this, delay, notifidint,message1);
                 Log.d("MainActivity", "schedule clicked" );
                 Log.d("MainActivity", " "+minutes);
@@ -153,13 +162,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+         findViewById(R.id.cancelAll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                nMgr.cancelAll();
+                Log.d("Service Status ", "the state of service running is "+isMyServiceRunning(StarterService.class));
+//                Intent startIntent = new Intent(getApplicationContext(), MyService.class);
+//                startService(startIntent);
+            }
+        });
+        findViewById(R.id.service).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(MainActivity.this, StarterService.class);
+                MainActivity.this.startService(intent1);
+            }
+        });
         notif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 MyFirebaseMessagingService notifi = new MyFirebaseMessagingService(MainActivity.this);
                 String message1 = message.getText().toString();
-                notifi.sendNotification(MainActivity.this,"notification from system"+message1);
+                notifi.sendNotification(MainActivity.this,"notification from system lalala \naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+message1);
                 Log.d("MainActivity", "notification generated using notification manager" );
                 Toast.makeText(getApplicationContext(),"notification generated using notification manager", Toast.LENGTH_LONG).show();
             }
@@ -197,6 +224,23 @@ public class MainActivity extends AppCompatActivity {
         long current = current_time.getTimeInMillis();
 
         return future-current;
+    }
+    public boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy()");
+        Intent intent = new Intent(this,Autostart.class );
+        sendBroadcast(intent);
+
     }
 
 }

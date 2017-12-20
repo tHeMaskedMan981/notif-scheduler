@@ -28,7 +28,9 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.SystemClock;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
@@ -142,7 +144,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Toast.makeText(context.getApplicationContext(),"notification cancelled for notif id : "+id, Toast.LENGTH_LONG).show();
 
     }
-    public void scheduleNotification(Context context, long delay, int notificationId,String message) {//delay is after how much time(in millis) from current time you want to schedule the notification
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void scheduleNotification(Context context, long delay, int notificationId, String message) {//delay is after how much time(in millis) from current time you want to schedule the notification
 
 //        ComponentName receiver = new ComponentName(context,  MyNotificationPublisher.class);
 //        PackageManager pm = context.getPackageManager();
@@ -189,7 +192,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent2);
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent2);
         Log.d("MainActivity", "schedule function called " +intentequal);
         Toast.makeText(context.getApplicationContext(),"schedule function called for notif id : "+notificationId +intentequal, Toast.LENGTH_SHORT).show();
 
@@ -216,8 +219,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.ic_stat_ic_notification)
-                .setContentTitle("FCM Message")
+                .setContentTitle("FCM MESSAGE")
                 .setContentText(messageBody)
+//        NotificationCompat.InboxStyle inboxStyle =
+//                new NotificationCompat.InboxStyle();
+//
+//// Sets a title for the Inbox in expanded layout
+//        inboxStyle.setBigContentTitle("Mood Indigo");
+//        inboxStyle.addLine("Compi event name");
+//        inboxStyle.addLine("Venue : Convocation Hall");
+//        inboxStyle.addLine("17:00 hrs");
+//        inboxStyle.addLine("This notif is brought to u by BOX 8");
+//
+//        notificationBuilder.setStyle(inboxStyle)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
